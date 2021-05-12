@@ -1,3 +1,6 @@
+def identity(x):
+    return x
+
 def Always(*args, **kwargs):
     return True
 
@@ -46,3 +49,35 @@ def EQ(x):
     def _eq(y, *args, **kwargs):
         return x == y
     return _eq
+
+
+class O:
+    def __init__(self, obj):
+        self._obj = obj
+
+    def __getattr__(self, attr):
+        try:
+            return self._obj.__getattribute__(attr)
+        except AttributeError:
+            return None
+    def __call__(self, *args, **kwargs):
+        try:
+            return self._obj.__call__(*args, **kwargs)
+        except AttributeError:
+            return None
+    def __getitem__(self, key):
+        try:
+            return self._obj.__getitem__(key)
+        except AttributeError:
+            return None
+
+class G:
+    def __init__(self, prop):
+        self._prop = prop
+
+    def __call__(self, *args, **kwargs):
+        try:
+            return args[0][prop]
+        except AttributeError:
+            return None
+
