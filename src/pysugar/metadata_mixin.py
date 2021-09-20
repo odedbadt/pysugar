@@ -3,8 +3,9 @@ class WithMetaMixin(object):
     _meta = None
 
     def __new__(cls, meta, value):
-        obj = super(WithMetaMixin, cls).__new__(cls, value)
-        return obj
+        # S = super()
+        # obj = super().__new__(cls, meta, value)
+        return super().__new__(cls, value)
 
     def __init__(self, meta, value):
         self._meta = meta
@@ -22,7 +23,8 @@ class WithMetaMixin(object):
 
     def __dir__(self):
         return list(self._meta.keys())
-
+    def dir(self):
+        return self.__dir__()
     @property
     def meta(self):
         return self._meta
