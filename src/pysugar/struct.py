@@ -13,8 +13,7 @@ DICT_KEY_ILLEGAL_PREFIX = re.compile(r'^([^A-Za-z_].*)')
 
 @cached_function
 def to_dict_key(non_key):
-    if isinstance(non_key, int):
-        return f'K_{non_key}'
+    non_key = str(non_key)
     if non_key.startswith('_'):
         non_key = 'u' + non_key
     non_key = str(non_key)
